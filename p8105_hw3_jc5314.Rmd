@@ -151,12 +151,69 @@ spaghetti_plot =
   xlab('Year') + 
   ylab('Mean data value')
 
+# show the plot
+
 spaghetti_plot
 ```
 
 ```{r}
 data_value_plot = 
   brfss_dat %>% 
-  filter(year %in% c(2006, 2010))
+  filter(
+    year %in% c(2006, 2010),
+    state == 'NY') %>% 
+  ggplot(aes(x = response, y = data_value)) +
+  geom_point() +
+  xlab('Resonse') +
+  ylab('Data value') +
+  facet_grid(~year)
+
+# show the plot
+  
+data_value_plot
+```
+
+# Problem 3
+
+```{r}
+acc_dat = 
+  read_csv("./data/accel_data.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    day_of_week = case_when(
+      day %in% c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday') ~ 'Weekday',
+      day %in% c('Saturday', 'Sunday') ~ 'Weekend',
+    ),
+    day = factor(day, levels = c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'))
+  ) %>% 
+  pivot_longer(
+    activity_1:activity_1440, 
+    names_to = "act_id", 
+    values_to = "act_value"
+  )
+```
+
+```{r}
+total_day_activity =
+  acc_dat  %>% 
+  group_by(week, day) %>% 
+  summarize(sum_act = sum(act_value)) %>% 
+  knitr::kable(col.names = c('Week', 'Day of week', 'Total value of daily activity')
+  )
+
+# show the table
+
+total_day_activity
+```
+
+```{r}
+activity_plot = 
+  total_day_activity %>%
+  ggplot(aes(x = day, y = sum, group = week)) + 
+  geom_point( )
+
+# show the plot
+
+activity_plot
 ```
 
