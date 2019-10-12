@@ -208,9 +208,9 @@ total_day_activity
 
 ```{r}
 activity_plot = 
-  total_day_activity %>%
-  ggplot(aes(x = day, y = sum, group = week)) + 
-  geom_point( )
+  acc_dat %>%
+  ggplot(aes(x = act_id, y = act_value, group = week)) + 
+  geom_point(aes(color = day))
 
 # show the plot
 
