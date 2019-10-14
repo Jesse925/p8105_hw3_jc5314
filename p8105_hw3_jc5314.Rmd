@@ -15,11 +15,33 @@ library(p8105.datasets)
 data("instacart")
 ```
 
-**"write a short description of the dataset, noting the size and structure of the data, describing some key variables, and giving illstrative examples of observations."**
+### 1. Description of the dataset:
 
-The dataset contains `r nrow(instacart)` observations and `r ncol(instacart)` variables.
+* **Size of the dataset**: The dataset contains `r nrow(instacart)` observations and `r ncol(instacart)` variables.
 
-* There are `r length(unique(pull(instacart, aisle)))` aisles in total here, and the aisles that the most items ordered from is '`r names(sort(table(pull(instacart, aisle)),decreasing=TRUE))[1]`'.
+* **Structure of the data**: The dataset records information of online grocery orders from the Instacart users. Each row represents one order of a product. Variables showing order information, product information, customer information, aisle information, information of purchasing time, etc., are included in the dataset.
+
+* **Key variables**: 
+
+(1) The mean of the values in variable `reordered` is `r mean(pull(instacart, reordered))`, which means that nearly 60% products were reordered. 
+
+(2) In variable `order_dow` which menas the day of week the order was placed, the value '`r names(sort(table(pull(instacart, order_dow)),decreasing=TRUE))[1]`' appeares the most. This means that most products were ordered on Sunday. 
+
+(3) In variable `order_hour_of_day` which menas the hour of day the order was placed, the value '`r names(sort(table(pull(instacart, order_hour_of_day)),decreasing=TRUE))[1]`' appeares the most. This means that most products were ordered at 2 pm. 
+
+(4) In variable `days_since_prior_order`, the mean value is `r mean(pull(instacart, days_since_prior_order))`, which means that people would order again after 17 days on average. 
+
+(5) For variable `aisle`, there are `r length(unique(pull(instacart, aisle)))` aisles in total, and the aisles that the most items ordered from is '`r names(sort(table(pull(instacart, aisle)),decreasing=TRUE))[1]`'.
+
+* **Illstrative example of observations**:
+
+Below is the first row of observations in the dataset. It represents an order of a product from one customer. In this example, the data tell us a customer brought a Bulgarian Yogurt from the 'yogurt' aisle at 10 am on Thursday. This was a re-order from this customer and it has been 9 days since his/her last order.
+
+`r instacart[1,] %>% knitr::kable()`
+
+### 2. Answers to the questions:
+
+* There are `r length(unique(pull(instacart, aisle)))` aisles in total, and the aisles that the most items ordered from is '`r names(sort(table(pull(instacart, aisle)),decreasing=TRUE))[1]`'. *Comment*: It shows that those customers had large demands in fresh vegetables and they may had health lifestyles.
 
 * A plot that shows the number of items ordered in each aisle, limiting to aisles with more than 10000 items ordered：
 
@@ -49,9 +71,9 @@ pop_item =
   ) %>% 
   group_by(aisle) %>% 
   count(product_name, name = 'number_of_ordered_time') %>% 
-  top_n(n = 5, wt = number_of_ordered_time) %>% 
-  knitr::kable(col.names = c('Aisle name', 'Top 5 popular items on this aisle', 'Number of ordered time'),
-               caption = 'Table 1: The 3 most popular items in the aisles and their numbers of time being ordered.')
+  top_n(n = 3, wt = number_of_ordered_time) %>% 
+  knitr::kable(col.names = c('Aisle name', 'Top 3 popular items on this aisle', 'Number of ordered time'),
+               caption = 'Table 1: The 3 most popular items in the given aisles and their numbers of time being ordered.')
 
 # show the table
 
@@ -206,7 +228,7 @@ total_day_activity =
 total_day_activity
 ```
 
-```{r}
+```{r, eval=FALSE}
 activity_plot = 
   acc_dat %>%
   ggplot(aes(x = act_id, y = act_value, group = week)) + 
