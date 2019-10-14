@@ -254,7 +254,7 @@ total_day_activity =
 total_day_activity
 ```
 
-*Comment:* The patient had total daily activity values around 300,000 ~ 400,000 at the most of day. On some days, the daily activity values were relatively low, which were around 100,000. On the Saturdays in both week 4 & 5, the daily activity values were only 1440, which may indicate that either the patient forgot to wear the accelerometer or there were some situations happend on the patient's body.
+*Comment:* The patient had total daily activity values around 300,000 ~ 400,000 on most days. There are also some days on which the daily activity values were relatively low, which were around 100,000. On the Saturdays in both week 4 & 5, the daily activity values were only 1440, which may indicate that either the patient forgot to wear the accelerometer or there were some situations happend on the patient's body.
 
 ```{r,   fig.width = 10, fig.asp = 0.5}
 activity_plot = 
@@ -280,4 +280,4 @@ activity_plot =
 activity_plot
 ```
 
-*Comment:* (1) During Day 2 to Day 5, the activity values across the day were much lower than most of the other days. (2) On Day 28 & Day 35, there were almost no activity value across the 24 hours, which accord with the finding in the last question that the patient might forget to wear the accelerometer or there might be something went wrong with the patient's body. (3) The activity values of the 24-hour time courses were similar in most of the day, and the peaks of the activity values during 24-hour usually appear at noon or in the afternoon.
+*Comment:* (1) During Day 2 to Day 5, the activity values across the day were much lower than most of the other days. (2) On Day 28 & Day 35, there were almost no activity value across the 24 hours, which accord with the finding in the last question that the patient might forget to wear the accelerometer or there might be something went wrong with the patient's body. (3) The activity values of the 24-hour time courses were similar in most of the days, and the peaks of the activity values during 24-hour usually appear at noon or in the afternoon.
